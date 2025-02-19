@@ -21,7 +21,10 @@ def compute_embedding(text: str) -> list:
 embeddings_list = []
 
 # Loop through each document and compute its embedding Add code here.
-
+for doc in docs:
+    text = doc.page_content if hasattr(doc, 'page_content') else str(doc)
+    emb = compute_embedding(text)
+    embeddings_list.append(emb)
 
 # Bundle the documents and their embeddings into a dictionary
 precomputed_data = {"docs": docs, "embeddings": embeddings_list}

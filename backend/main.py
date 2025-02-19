@@ -66,7 +66,12 @@ except Exception as e:
 index = faiss.IndexFlatL2(embedding_dim)
 
 # Create vector store from precomputed embeddings.Add code here.
-
+vector_store = FAISS(
+    embedding_function=embedding_model,
+    index=index,
+    docstore=InMemoryDocstore(),
+    index_to_docstore_id={}
+)
 
 try:
     vector_store.add_documents(documents=docs)
@@ -79,10 +84,21 @@ except Exception as e:
 retriever = vector_store.as_retriever()
 
 # Define the system and human prompts for the chat pipeline. Add code here.
+system_prompt = (
+    "You are an assistant for question-answering tasks. "
+    "Use the following pieces of retrieved context to answer the question. "
+    "If you don't know the answer, say that you don't know. "
+    "Keep your answer concise (max three sentences).\n\n"
+    "{context}"
+)
 
-
+RAGPrompt = ChatPromptTemplate([
+    ("system", system_prompt),
+    ("human", "{input}"),
+])
 # Create the LangChain pipeline for question-answering. Adds code here.
-
+combine_docs_chain = create_stuff_documents_chain(llm, RAGPrompt)
+rag_chain = create_retrieval_chain(retriever, combine_docs_chain)
 
 @app.post("/query")
 async def query_rag(payload: dict):
