@@ -1,0 +1,48 @@
+# ==============================
+# Backend-specific ignores
+# ==============================
+/backend/*.egg-info/
+!/backend/some-keep-folder/        # (Optional: if you need to keep some subfolder)
+
+/backend/dist/
+/backend/build/
+/backend/.eggs/
+
+/backend/pip-log.txt
+/backend/pip-delete-this-directory.txt
+/backend/.cache/
+
+/backend/*.cover
+/backend/*.py,cover
+/backend/.hypothesis/
+/backend/__pycache__/
+/backend/*.py[cod]
+
+/backend/.ipynb_checkpoints/
+/backend/.env
+/backend/.env.*
+/backend/.venv
+/backend/venv
+
+/backend/.vscode/
+/backend/.idea/
+
+# Other backend-specific files
+/backend/precomputed_embeddings.pkl
+
+
+# ==============================
+# Frontend-specific ignores
+# ==============================
+/frontend/node_modules/
+/frontend/npm-debug.log*
+/frontend/yarn-debug.log*
+/frontend/yarn-error.log*
+/frontend/pnpm-debug.log*
+
+/frontend/dist/
+/frontend/build/
+/frontend/.vite/
+/frontend/.vite-cache/
+
+*.log
